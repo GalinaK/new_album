@@ -1,7 +1,9 @@
 # Django settings for new_album project.
+
 import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+INTERNAL_IPS = ('127.0.0.1',)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -57,6 +59,8 @@ MEDIA_ROOT = '/Users/galina/PycharmProjects/new_album/media'
 #MEDIA_URL = '/media/'
 MEDIA_URL = 'http://127.0.0.1:8000/media/'
 
+
+
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -102,13 +106,14 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+	'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -119,13 +124,18 @@ ROOT_URLCONF = 'new_album.urls'
 WSGI_APPLICATION = 'new_album.wsgi.application'
 
 #TEMPLATE_DIRS = os.path.join(OUR_ROOT, "templates",)
+#
+#TEMPLATE_DIRS = (
+#	'/Users/galina/PycharmProjects/new_album/templates',
+##	'/Library/Python/2.7/site-packages/debug_toolbar/templates/debug_toolbar',
+#	# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+#	# Always use forward slashes, even on Windows.
+#	# Don't forget to use absolute paths, not relative paths.
+#	)
 
-TEMPLATE_DIRS = (
-	'/Users/galina/PycharmProjects/new_album/templates',
-	# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-	# Always use forward slashes, even on Windows.
-	# Don't forget to use absolute paths, not relative paths.
-	)
+TEMPLATE_DIRS = [os.path.join('/Users/galina/PycharmProjects/new_album/',
+	'templates'),
+				 '/Library/Python/2.7/site-packages/debug_toolbar/templates/debug_toolbar']
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -136,10 +146,22 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+	'debug_toolbar',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'album',
 )
+DEBUG_TOOLBAR_PANELS = (
+	'debug_toolbar.panels.version.VersionDebugPanel',
+	'debug_toolbar.panels.timer.TimerDebugPanel',
+	'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+	'debug_toolbar.panels.headers.HeaderDebugPanel',
+	'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+	'debug_toolbar.panels.template.TemplateDebugPanel',
+	'debug_toolbar.panels.sql.SQLDebugPanel',
+	'debug_toolbar.panels.signals.SignalDebugPanel',
+	'debug_toolbar.panels.logger.LoggingPanel',
+	)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -7,6 +7,7 @@ from django.template import *
 from django.http import HttpRequest
 from album.models import *
 from django.db import connection, transaction
+from new_album.settings import TEMPLATE_DIRS
 
 
 def main(request):
@@ -27,23 +28,29 @@ def main(request):
 	for album in albums.object_list:
 		album.images = album.image_set.all()[:4]
 
-#	return render_to_response("photo/main.html", dict(albums=albums,
-#	user=request.user, media_url=MEDIA_URL))
-	return render(request, 'photo/main.html', {'albums': albums})
+	cursor = connection.cursor()
+	a = Image.objects.raw(
+		'''SELECT album_image. * , album_image_albums. *, album_album.* FROM album_image INNER JOIN album_image_albums ON album_image.id = album_image_albums.image_id inner join album_album on album_album.id = album_image_albums.album_id where main_photo=1 ''')
+
+	#	return render_to_response("photo/main.html", dict(albums=albums,
+	#	user=request.user, media_url=MEDIA_URL))
+	return render(request, 'photo/main.html', {'albums': albums, 'main_a': a})
 
 
 def base(request):
 	return render(request, 'base.html', {})
 
+
 def slider(request):
 	return render(request, 'photo/big_slider.html', {})
 
+
 def album(request, pk, view="thumbnails"):
 	"""Album listing."""
-#	main_photo = Image.objects.all().order_by('main_photo')
+	#	main_photo = Image.objects.all().order_by('main_photo')
 	num_images = 30
 	if view == "full": num_images = 1
-#	albums = Album.objects.all()
+	#	albums = Album.objects.all()
 
 
 	album = Album.objects.get(pk=pk)
@@ -64,13 +71,10 @@ def album(request, pk, view="thumbnails"):
 		img.tag_lst = join(tags, ', ')
 		img.album_lst = [x[1] for x in img.albums.values_list()]
 
-
-
 		d = dict(album=album, images=images, user=request.user, view=view,
 			albums=Album.objects.all(), media_url=MEDIA_URL)
 		d.update(csrf(request))
-		return  render(request,'photo/album.html',d)
-
+		return  render(request, 'photo/album.html', d)
 
 
 def image(request, pk):
@@ -79,6 +83,7 @@ def image(request, pk):
 	img = Image.objects.get(pk=pk)
 	return render_to_response("photo/image.html", dict(image=img,
 		user=request.user, media_url=MEDIA_URL))
+
 #
 #	return render_to_response("photo/image.html", dict(image=img,
 #		user=request.user, backurl=request.META["HTTP_REFERER"],
@@ -86,14 +91,13 @@ def image(request, pk):
 
 
 def gallery_photo(request):
-	return render(request, 'photo/gallery_photo.html',{})
+	return render(request, 'photo/gallery_photo.html', {})
 
 
-def test4(request):
-
-	cursor = connection.cursor()
-
-	a = Image.objects.raw('''SELECT album_image. * , album_image_albums. *, album_album.* FROM album_image INNER JOIN album_image_albums ON album_image.id = album_image_albums.image_id inner join album_album on album_album.id = album_image_albums.album_id where main_photo=1 ''')
-#	cursor.excute("SELECT album_image.*, album_album.title_album FROM album_image LEFT JOIN album_album ON album_image.id = album_album.id")
-
-	return render(request, 'photo/main_album.html',{'main_a': a})
+#def test4(request):
+#
+#	cursor = connection.cursor()
+#
+#	a = Image.objects.raw('''SELECT album_image. * , album_image_albums. *, album_album.* FROM album_image INNER JOIN album_image_albums ON album_image.id = album_image_albums.image_id inner join album_album on album_album.id = album_image_albums.album_id where main_photo=1 ''')
+##	cursor.excute("SELECT album_image.*, album_album.title_album FROM album_image LEFT JOIN album_album ON album_image.id = album_album.id")
+#	return render(request, 'photo/test4.html',{'main_a': a})
