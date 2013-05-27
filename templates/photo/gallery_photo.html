@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="block_photo">
+	<!-- Photo   -->
+	<ul>
+		{% for image in image_url %}
+		{{ image.title }}<a href="image/{{ image.id }}"><img border="0"alt="" src="{{ MEDIA_URL }}{{ image.thumbnail2 }}"/></a>
+
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

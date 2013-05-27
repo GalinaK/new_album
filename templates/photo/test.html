@@ -1,0 +1,17 @@
+{% block content %}
+<ul>
+		{% if list_of_image %}
+			{% for album in list_of_image %}
+				<div class="title">{{ album.title }} ({{ album.image_set.count }} images)</div>
+				<ul>
+				{% for img in album.images %}
+					<a href="{{ MEDIA_URL }}{{ img.image.name }}"><img border="0" alt=""
+					                                                  src="{{ MEDIA_URL }}{{ img.thumbnail2.name }}" /></a>
+				{% endfor %}
+				</ul>
+			{% endfor %}
+		{% endif %}
+
+</ul>
+
+{% endblock %}

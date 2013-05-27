@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="big_slider">
+	{% include "photo/big_slider.html" %}
+	</div>
+	========
+
+	<div class="example">
+		<ul>
+
+
+			{% for image in image_url %}
+
+				{% if image.id_photo_gallery == None %}
+				{% else %} {% if image.id_photo_gallery %}
+
+					{{ image.title }}<a href="image/{{ image.id }}"><img
+							border="0" alt=""
+							src="{{ MEDIA_URL }}{{ image.thumbnail2 }}"/></a>
+
+				{% endif %}
+				{% endif %}
+
+			{% endfor %}
+			<p><a href="{% url album.views.gallery_photo %}">Gallary</a></p>
+
+
+		</ul>
+	</div>
+
+	<div class="block_album">
+
+		<p>=========1==============</p>
+		<ul>
+{% include "photo/main_album.html" %}
+	</ul>
+	<p>=========1-1==============</p>
+
+    {#	{% include "photo/smal_slider.html" %}#}
+{% endblock %}
