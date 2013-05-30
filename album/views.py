@@ -44,6 +44,9 @@ def base(request):
 def slider(request):
 	return render(request, 'photo/big_slider.html', {})
 
+def slider2(request):
+	return render(request, 'photo/big_slider2.html', {})
+
 
 def album(request, pk, view="thumbnails"):
 	"""Album listing."""

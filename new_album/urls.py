@@ -25,5 +25,6 @@ urlpatterns = patterns('',
 	url(r"^(\d+)/(full|thumbnails|edit)/$", "album.views.album"),
 	url(r'^gallery/$', "album.views.gallery_photo"),
 	url(r'^slider/$', "album.views.slider"),
+	url(r'^slider2/$', "album.views.slider2"),
 #	url(r'^test3/$', "album.views.test4"),
 )

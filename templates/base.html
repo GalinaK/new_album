@@ -7,9 +7,12 @@
 	<meta name="keywords" content="{% block meta_key %}{% endblock %}">
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/main.css">
-{#for carusel bootstrap#}
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/bootstrap.css">
-<script src="{{ MEDIA_URL }}js/bootstrap.js"></script>
+	<script src="{{ MEDIA_URL }}js/jquery.js"></script>
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.css" type="text/css"/>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/bootstrap-carousel.js"></script>
+	<script type="text/javascript">
+		$('.carousel').carousel()
+	</script>
 
 </head>
 <body>
