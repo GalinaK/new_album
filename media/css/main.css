@@ -42,7 +42,7 @@
 #nav ul li{
     padding-top:1px; /* Вводим отступ между li чтобы создать иллюзию разделенных пунктов меню */
     float:none;
-    background:url(dot.gif);
+    /*background:url(dot.gif);*/
 }
 #nav ul a{
     white-space:nowrap; /* Останавливаем перенос текста и создаем многострочный выпадающий пункт */

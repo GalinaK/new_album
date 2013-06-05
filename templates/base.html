@@ -9,10 +9,17 @@
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/main.css">
 	<script src="{{ MEDIA_URL }}js/jquery.js"></script>
 	<link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.css" type="text/css"/>
+	<script src="http://code.jquery.com/jquery-1.9.0rc1.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.0.0rc1.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/bootstrap-carousel.js"></script>
 	<script type="text/javascript">
 		$('.carousel').carousel()
 	</script>
+    <script type="text/javascript">
+        $('.carousel').carousel({
+            interval: 500
+        })
+    </script>
 
 </head>
 <body>
